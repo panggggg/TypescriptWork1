@@ -33,7 +33,11 @@ export let addBook = async (req: Request, res: Response) => {
         } else {
             res.send(book);
             console.log("insert a new book")
-            console.log(req.body)
+            console.log(req.body);
+
+            const data = JSON.stringify(req.body)
+            const myObj = JSON.parse(data)
+            console.log(myObj["title"])
         }
     })
 }
