@@ -1,5 +1,11 @@
 import { Request, Response } from 'express';
 import Book from './../../book';
+import * as redis from 'redis';
+
+const portRedis = '6379';
+
+const redisClient = redis.createClient(portRedis);
+
 
 // - GET - /books => all books
 export let allBooks = (req: Request, res: Response) => {
@@ -18,6 +24,7 @@ export let getBook = async (req: Request, res: Response) => {
         if (err) {
             res.send(err)
         } else {
+            redisClient.set(req.params.id, JSON.stringify(book))
             res.send(book);
         }
     })
